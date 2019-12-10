@@ -8,3 +8,12 @@ export const employeesLoaded = (employees) => {
     }
   };
 }
+
+export const newEmployeeAdded = (newEmployee) => {
+  return {
+    type: EMPLOYEE_ADDED,
+    payload: {
+      newEmployee
+    }
+  };
+}
