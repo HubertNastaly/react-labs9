@@ -14,7 +14,7 @@ import rootReducer from '../redux/reducers'
 import PageEmployeesList from './PageEmployeesList';
 import PageEmployeeCreate from './PageEmployeeCreate';
 
-const store = createStore(rootReducer, {firstLoading: true}, composeWithDevTools())
+const store = createStore(rootReducer, { firstLoading: true }, composeWithDevTools())
 
 const App = () => (
   <Provider store={store}>
