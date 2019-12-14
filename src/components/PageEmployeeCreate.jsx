@@ -1,6 +1,9 @@
 import React from 'react'
 import { withRouter } from 'react-router-dom'
-import { connect } from 'http2';
+import { connect } from 'react-redux';
+import { compose } from 'redux'
+
+import { newEmployeeAdded } from '../redux/actions'
 
 class PageEmployeeCreate extends React.Component {
   constructor(props) {
@@ -53,7 +56,10 @@ class PageEmployeeCreate extends React.Component {
       name, 
       age, 
       company, 
-      email };
+      email 
+    };
+
+    this.props.newEmployeeAdded(employee);
 
     fetch('http://localhost:3004/employees', {
       method: 'POST', 
@@ -106,8 +112,7 @@ const mapDispatchToProps = (dispatch) => ({
   newEmployeeAdded: newEmployee => dispatch(newEmployeeAdded(newEmployee))
 })
 
-//export default withRouter(PageEmployeeCreate);
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
+export default compose(
+  withRouter,
+  connect(mapStateToProps, mapDispatchToProps)
 )(PageEmployeeCreate)
