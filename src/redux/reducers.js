@@ -1,7 +1,8 @@
-import { EMPLOYEES_LOADED, EMPLOYEE_ADDED } from './constants';
+import { EMPLOYEES_LOADED, EMPLOYEE_ADDED, LIST_LOADED_FIRST_TIME } from './constants';
 
 export const initialState = {
-  employees: []
+  employees: [],
+  newEmployee: null
 };
 
 // Read this: https://redux.js.org/basics/reducers
@@ -16,6 +17,10 @@ const appReducer = (state = initialState, action) => {
     case EMPLOYEE_ADDED:{
       const {newEmployee} = action.payload;
       return Object.assign({},state,{newEmployee});
+    }
+    case LIST_LOADED_FIRST_TIME:{
+      const {firstLoading} = false;
+      return Object.assign({},state,{firstLoading});
     }
     default:
         return state

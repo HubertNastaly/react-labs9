@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux';
 import { compose } from 'redux'
 
-import { newEmployeeAdded } from '../redux/actions'
+import { newEmployeeAdded, employeesLoaded } from '../redux/actions'
 
 class PageEmployeeCreate extends React.Component {
   constructor(props) {
@@ -58,7 +58,7 @@ class PageEmployeeCreate extends React.Component {
       company, 
       email 
     };
-
+    
     this.props.newEmployeeAdded(employee);
 
     fetch('http://localhost:3004/employees', {
@@ -73,6 +73,7 @@ class PageEmployeeCreate extends React.Component {
       if(res.status !== 201) {
         this.setState({ isSaving: false, error: `Saving returned status ${res.status}`})
       } else {
+        this.props.employees.push(employee);
         this.props.history.push("/");
       }
     })  
@@ -104,7 +105,8 @@ class PageEmployeeCreate extends React.Component {
 
 const mapStateToProps = (state /*, ownProps*/) => {
   return {
-    newEmployee: state.newEmployee
+    newEmployee: state.newEmployee,
+    employees: state.employees
   }
 }
 

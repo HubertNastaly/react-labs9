@@ -1,4 +1,4 @@
-import { EMPLOYEES_LOADED, EMPLOYEE_ADDED } from './constants';
+import { EMPLOYEES_LOADED, EMPLOYEE_ADDED, LIST_LOADED_FIRST_TIME } from './constants';
 
 export const employeesLoaded = (employees) => {
   return {
@@ -16,4 +16,10 @@ export const newEmployeeAdded = (newEmployee) => {
       newEmployee
     }
   };
+}
+
+export const listLoadedFirstTime = () => {
+  return {
+    type: LIST_LOADED_FIRST_TIME
+  }
 }

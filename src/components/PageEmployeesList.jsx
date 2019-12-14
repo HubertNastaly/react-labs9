@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 
-import { employeesLoaded } from '../redux/actions'
+import { employeesLoaded, listLoadedFirstTime } from '../redux/actions'
 
 const EmployeeLine = ({ employee }) => <div>{employee.name} ({employee.age} yrs old): {employee.company}</div>
 
@@ -17,7 +17,11 @@ class PageEmployeesList extends React.Component {
   }
 
   componentDidMount() {
+    if(!this.props.firstLoading)
+      return;
+    console.log('FirstLoading');
     this.setState({ isLoading: true });
+    this.props.listLoadedFirstTime();
     fetch('http://localhost:3004/employees')
     .then((data) => data.json())
     // Without Redux
@@ -51,12 +55,14 @@ class PageEmployeesList extends React.Component {
 
 const mapStateToProps = (state /*, ownProps*/) => {
   return {
-    employees: state.employees
+    employees: state.employees,
+    firstLoading: state.firstLoading
   }
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  employeesLoaded: employees => dispatch(employeesLoaded(employees))
+  employeesLoaded: employees => dispatch(employeesLoaded(employees)),
+  listLoadedFirstTime: () => dispatch(listLoadedFirstTime())
 })
 
 export default connect(
