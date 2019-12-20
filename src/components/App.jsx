@@ -15,6 +15,7 @@ import thunk from 'redux-thunk'
 import PageEmployeesList from './PageEmployeesList';
 import PageEmployeeCreate from './PageEmployeeCreate';
 
+//already modified in exercise 1
 const store = createStore(rootReducer, applyMiddleware(thunk))
 
 const App = () => (
