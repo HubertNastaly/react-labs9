@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux';
 import { compose } from 'redux'
 
-import { newEmployeeAdded, employeesLoaded } from '../redux/actions'
+import { newEmployeeAdded } from '../redux/actions'
 
 class PageEmployeeCreate extends React.Component {
   constructor(props) {

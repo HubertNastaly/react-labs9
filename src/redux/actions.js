@@ -1,4 +1,4 @@
-import { EMPLOYEES_LOADED, EMPLOYEE_ADDED, DATA_FETCHING_LAUNCHED, DATA_FETCHING_ERROR } from './constants';
+import { EMPLOYEES_LOADED, EMPLOYEE_ADDED, DATA_FETCHING_LAUNCHED, DATA_FETCHING_ERROR, SAVE_USER } from './constants';
 
 export const employeesLoaded = (employees) => {
   return {
@@ -41,4 +41,16 @@ export const fetchEmployees = () => {
         (error) => dispatch(dataFetchingError(error))
       )
   } 
+}
+
+
+//PageLogin
+
+export const saveUser = (user) => {
+  return {
+    type: SAVE_USER,
+    payload:{
+      user
+    }
+  }
 }

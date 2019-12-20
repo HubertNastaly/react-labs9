@@ -19,6 +19,12 @@ class PageEmployeesList extends React.Component {
   }
 
   render() {
+    var userLabelStyle = {
+      width: '100%',
+      textAlign: 'right',
+      margin: '0 10px 0 0'
+    };
+
     const { employees, isListLoading } = this.props;
 
     if(isListLoading) {
@@ -27,6 +33,7 @@ class PageEmployeesList extends React.Component {
     
     return (
       <div>
+        <h4 style={userLabelStyle}>{this.props.user.fullName}</h4>
         <h1>Employees List:</h1>
         {employees && employees.map((employee => <EmployeeLine key={employee._id} employee={employee} />))}
         <Link to="/new">
@@ -41,7 +48,8 @@ const mapStateToProps = (state /*, ownProps*/) => {
   return {
     employees: state.employees,
     firstLoading: state.firstLoading,
-    isListLoading: state.isListLoading
+    isListLoading: state.isListLoading,
+    user: state.user
   }
 }
 
