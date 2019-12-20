@@ -37,10 +37,7 @@ export const fetchEmployees = () => {
     return fetch('http://localhost:3004/employees')
       .then((data) => data.json())
       .then(
-        (employees) => 
-        {
-          dispatch(employeesLoaded(employees))
-        },
+        (employees) => dispatch(employeesLoaded(employees)),
         (error) => dispatch(dataFetchingError(error))
       )
   } 

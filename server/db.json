@@ -152,5 +152,11 @@
       "company": "EXIAND",
       "email": "rosannanewman@exiand.com"
     }
+  ],
+  "users":[
+    {
+      "username": "john",
+      "fullName": "John Doe"
+    }
   ]
 }
