@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 
-import { employeesLoaded, listLoadedFirstTime } from '../redux/actions'
+import { employeesLoaded, listLoadedFirstTime, fetchEmployees } from '../redux/actions'
 
 const EmployeeLine = ({ employee }) => <div>{employee.name} ({employee.age} yrs old): {employee.company}</div>
 
@@ -10,34 +10,18 @@ class PageEmployeesList extends React.Component {
 
   constructor(props) {
     super(props);
-
-    this.state = { 
-      isLoading: false,
-    }
   }
 
   componentDidMount() {
     if(!this.props.firstLoading)
       return;
-    console.log('FirstLoading');
-    this.setState({ isLoading: true });
-    this.props.listLoadedFirstTime();
-    fetch('http://localhost:3004/employees')
-    .then((data) => data.json())
-    // Without Redux
-    // .then((employees) => this.setState({ employees, isLoading: false }));
-    // With Redux
-    .then((employees) => {
-      this.props.employeesLoaded(employees);
-      this.setState({ isLoading: false });
-    });
+    this.props.fetchEmployees();
   }
 
   render() {
-    const { isLoading } = this.state;
-    const { employees } = this.props;
+    const { employees, isListLoading } = this.props;
 
-    if(isLoading) {
+    if(isListLoading) {
       return <p>Loading ...</p>
     }
     
@@ -56,13 +40,13 @@ class PageEmployeesList extends React.Component {
 const mapStateToProps = (state /*, ownProps*/) => {
   return {
     employees: state.employees,
-    firstLoading: state.firstLoading
+    firstLoading: state.firstLoading,
+    isListLoading: state.isListLoading
   }
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  employeesLoaded: employees => dispatch(employeesLoaded(employees)),
-  listLoadedFirstTime: () => dispatch(listLoadedFirstTime())
+  fetchEmployees: () => dispatch(fetchEmployees())
 })
 
 export default connect(

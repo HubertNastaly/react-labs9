@@ -1,8 +1,10 @@
-import { EMPLOYEES_LOADED, EMPLOYEE_ADDED, LIST_LOADED_FIRST_TIME } from './constants';
+import { EMPLOYEES_LOADED, EMPLOYEE_ADDED, DATA_FETCHING_LAUNCHED, DATA_FETCHING_ERROR  } from './constants';
 
 export const initialState = {
   employees: [],
-  newEmployee: null
+  newEmployee: null,
+  firstLoading: true,
+  isListLoading: true
 };
 
 // Read this: https://redux.js.org/basics/reducers
@@ -10,17 +12,23 @@ export const initialState = {
 const appReducer = (state = initialState, action) => {
   switch (action.type) {
     case EMPLOYEES_LOADED: {
+      const {isListLoading} = false;
       const { employees } = action.payload;
       // CAREFUL: You can't modify state variable directly.
-      return Object.assign({}, state, { employees });
+      return Object.assign({}, state, { employees, isListLoading });
     }
     case EMPLOYEE_ADDED:{
       const {newEmployee} = action.payload;
       return Object.assign({},state,{newEmployee});
     }
-    case LIST_LOADED_FIRST_TIME:{
+    case DATA_FETCHING_LAUNCHED:{
       const {firstLoading} = false;
-      return Object.assign({},state,{firstLoading});
+      const {isListLoading} = true;
+      return Object.assign({},state,{firstLoading,isListLoading});
+    }
+    case DATA_FETCHING_ERROR:{
+      console.log('Data fetching error!');
+      return state;
     }
     default:
         return state

@@ -1,4 +1,4 @@
-import { EMPLOYEES_LOADED, EMPLOYEE_ADDED, LIST_LOADED_FIRST_TIME } from './constants';
+import { EMPLOYEES_LOADED, EMPLOYEE_ADDED, DATA_FETCHING_LAUNCHED, DATA_FETCHING_ERROR } from './constants';
 
 export const employeesLoaded = (employees) => {
   return {
@@ -18,8 +18,30 @@ export const newEmployeeAdded = (newEmployee) => {
   };
 }
 
-export const listLoadedFirstTime = () => {
+export const dataFetchingLaunched = () => {
   return {
-    type: LIST_LOADED_FIRST_TIME
+    type: DATA_FETCHING_LAUNCHED
   }
+}
+
+export const dataFetchingError = (error) => {
+  return {
+    type: DATA_FETCHING_ERROR,
+    error: error
+  }
+}
+
+export const fetchEmployees = () => {
+  return (dispatch) => {
+    dispatch(dataFetchingLaunched());
+    return fetch('http://localhost:3004/employees')
+      .then((data) => data.json())
+      .then(
+        (employees) => 
+        {
+          dispatch(employeesLoaded(employees))
+        },
+        (error) => dispatch(dataFetchingError(error))
+      )
+  } 
 }
